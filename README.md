@@ -1,12 +1,15 @@
 # data-vs-time visualization software
 
-This repository contains the time-series visualization software which
-is also available on the <a href="http://www.datavstime.com">www.datavstime.com</a> website. 
+This repository contains the time-series visualization software which 
+is also available for use directly on the 
+<a href="http://www.datavstime.com">www.datavstime.com</a> website. You
+are free to make a copy and deploy it 
 
-It's a client-side javascript application - just point it at your data
+DvT is a client-side javascript application - just point it at your data
 source and start exploring.
 
-Currently the only supported data source is <a href="http://prometheus.io">prometheus</a> - additional data sources and 
+Currently the only supported data source is <a href="http://prometheus.io">prometheus</a>. Support for additional data sources will be forthcoming shortly, and 
+
  The bundled
 / minified source is released under [3-clause BSD license]()
 
