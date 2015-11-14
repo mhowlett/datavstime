@@ -9,13 +9,9 @@ and pointing your browser at the app.html file. Note that all application
 state is stored in cookies / web local storage - there is no server side
 component.
 
-Currently the only supported data source is <a href="http://prometheus.io">prometheus</a>. Support for additional data sources will be forthcoming shortly. Also, I will expose the data source adapter interface making it easy to add additional data sources.
+Currently the only supported data source is <a href="http://prometheus.io">prometheus</a>. Support for additional data sources will be forthcoming soon. Also, I will expose the data source adapter interface making it easy to add additional data sources.
 
-## License
-
-The bundled / minified source is released under a [3-clause BSD license](LICENSE.txt). 
-
-## Notes
+## Overview
 
 * DvT is a new tool for visualization of time-varying data.
 * The concept is a bit novel. Time series are represented as blocks which can be grouped, re-grouped, moved, aggregated up, expanded out etc. along the axes of the multi-dimensional time-series labels (not all that is implemented yet!).
@@ -32,3 +28,17 @@ This software depends on the following:
   font awesome
   web fonts.
 
+## License
+
+The bundled / minified source is released under a 
+[3-clause BSD license](LICENSE.txt). Future versions of the software 
+may be released under a different license.
+
+## Privacy
+
+DvT sends basic usage information to the datavstime.com website - which 
+features of the software you are using and how often. This allows me to
+understand how people are using the software better and direct development
+effort where it is most needed. The data you are visualizaing, and meta-
+information about this data (e.g. label names, number of labels etc) 
+remains in your browser.
