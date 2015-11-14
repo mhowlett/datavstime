@@ -36,9 +36,9 @@ may be released under a different license.
 
 ## Privacy
 
-DvT sends basic usage information to the datavstime.com website - which 
+DvT sends basic usage information to the datavstime.com website - what 
 features of the software you are using and how often. This allows me to
-understand how people are using DvT enabling me to direct development
-effort to where it is most needed. The data you are visualizaing, and 
-meta-information about this data (e.g. label names, number of labels etc) 
-is *NOT SENT* - it remains in your browser.
+understand how people are using DvT and enables me to direct development
+effort to where it is needed the most. The data you are visualizaing as
+well as meta-information about this data (e.g. label names, number of
+labels etc) **remains private** - it does not leave your browser.
