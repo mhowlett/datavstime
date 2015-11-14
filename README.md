@@ -40,9 +40,10 @@ make better decisions about where to direct future development effort.
 
 ## Dependencies
 
-DvT has two dependencies that are not (currently) included in this 
-distribution:
+It is worth noting that DvT has two dependencies which are (currently) 
+provided by a CDN on the internet and not included in this distribution:
 
-    <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>
-    <a href="https://www.google.com/fonts/specimen/Open+Sans">Open Sans web font</a>
+<a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>
+
+<a href="https://www.google.com/fonts/specimen/Open+Sans">Open Sans web font</a>
 
