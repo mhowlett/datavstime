@@ -1,7 +1,7 @@
-# data-vs-time timeseries visualization software
+# data-vs-time visualization software
 
 This repository contains the time-series visualization software which
-is also available on the <a href="">www.datavstime.com</a> website. 
+is also available on the <a href="http://www.datavstime.com">www.datavstime.com</a> website. 
 
 It's a client-side javascript application - just point it at your data
 source and start exploring.
