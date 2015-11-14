@@ -9,7 +9,7 @@ and pointing your browser at the app.html file. Note that all application
 state is stored in cookies / web local storage - there is no server side
 component.
 
-Currently the only supported data source is <a href="http://prometheus.io">prometheus</a>. Support for additional data sources will be forthcoming soon. Also, I will expose the data source adapter interface making it easy to add additional data sources.
+Currently the only supported data source is <a href="http://prometheus.io">prometheus</a>. Support for additional data sources will be forthcoming soon. Also, the data source adapter interface will be exposed making it easy to add additional data sources.
 
 ## Overview
 
@@ -26,7 +26,7 @@ Currently the only supported data source is <a href="http://prometheus.io">prome
 
 The bundled / minified source is released under a 
 [3-clause BSD license](LICENSE.txt). Future versions of the software 
-may be released under a different license.
+may be released under different terms.
 
 ## Privacy
 
@@ -43,6 +43,6 @@ make better decisions about where to direct future development effort.
 DvT has two dependencies that are not (currently) included in this 
 distribution:
 
-  <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>
-  <a href="https://www.google.com/fonts/specimen/Open+Sans">Open Sans web font</a>
+    <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>
+    <a href="https://www.google.com/fonts/specimen/Open+Sans">Open Sans web font</a>
 
