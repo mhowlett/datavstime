@@ -22,6 +22,12 @@ Currently the only supported data source is <a href="http://prometheus.io">prome
 * This is a preview release. It's still buggy and incomplete.
 * All feedback is greatly appreciated. (matt [at] mhowlett [dot] com)
 
+## Development Status
+
+This is the first public release. It's rough around the edges, buggy and 
+there is a lot of optimization work to do. That said, it is starting to 
+get useful.
+
 ## License
 
 The bundled / minified source is released under a 
