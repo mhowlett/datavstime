@@ -18,7 +18,7 @@ Currently the only supported data source is <a href="http://prometheus.io">prome
 * This allows you to explore your data with ease - navigation is a defining feature of dvt.
 * DvT makes use of WebGL for highly performant rendering, allowing for more than a thousand timeseries to be displayed and interacted with simultaneously.
 * Blocks will be able to display different visualizations with different strengths and weaknesses. Currently, blocks can display stepped area charts or a generalization of this - horizon charts - which are a good visualization at smaller scales.
-* My starting point for the concept was Mike Bostock's cubism but DvT adds navigation, multiple columns, grouping and additional interactivity.
+* My starting point for the concept was Mike Bostock's <a href="https://square.github.io/cubism/">cubism</a> but DvT adds navigation, multiple columns, grouping and additional interactivity.
 * This is a preview release. It's still buggy and incomplete.
 * All feedback is greatly appreciated. (matt [at] mhowlett [dot] com)
 
