@@ -38,7 +38,7 @@ may be released under a different license.
 
 DvT sends basic usage information to the datavstime.com website - which 
 features of the software you are using and how often. This allows me to
-understand how people are using the software better and direct development
-effort where it is most needed. The data you are visualizaing, and meta-
-information about this data (e.g. label names, number of labels etc) 
-remains in your browser.
+understand how people are using DvT enabling me to direct development
+effort to where it is most needed. The data you are visualizaing, and 
+meta-information about this data (e.g. label names, number of labels etc) 
+is *NOT SENT* - it remains in your browser.
