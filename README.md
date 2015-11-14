@@ -1,20 +1,18 @@
 # data-vs-time
 
-datavstime (DvT) is a browser based application for visualization of
+Datavstime (DvT) is a browser based application for visualization of
 time-series data. You can use the software directly on
 <a href="http://www.datavstime.com">www.datavstime.com</a>, or you 
-can take a copy of this repository and deploy it locally. This is as
-simple as copying all the files in this repository to a web server 
-and browsing to app.html. All application state is stored in cookies / 
-web local storage.
- 
-DvT is a client-side javascript application - just point it at your data
-source and start exploring.
+can take a copy of this repository and deploy it locally. Deploying DvT
+is as simple as copying all the files in this repository to a web server 
+and browsing to app.html. Note that all application state is stored 
+in cookies / web local storage.
 
-Currently the only supported data source is <a href="http://prometheus.io">prometheus</a>. Support for additional data sources will be forthcoming shortly, and 
+Currently the only supported data source is <a href="http://prometheus.io">prometheus</a>. Support for additional data sources will be forthcoming shortly. Also, I will expose the data source adapter interface making it easy to add additional data sources.
 
- The bundled
-/ minified source is released under [3-clause BSD license]()
+## License
+
+The bundled / minified source is released under [3-clause BSD license](LICENSE.txt). 
 
 ## Notes
 
