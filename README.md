@@ -1,10 +1,13 @@
-# data-vs-time visualization software
+# data-vs-time
 
-This repository contains the time-series visualization software which 
-is also available for use directly on the 
-<a href="http://www.datavstime.com">www.datavstime.com</a> website. You
-are free to make a copy and deploy it 
-
+datavstime (DvT) is a browser based application for visualization of
+time-series data. You can use the software directly on
+<a href="http://www.datavstime.com">www.datavstime.com</a>, or you 
+can take a copy of this repository and deploy it locally. This is as
+simple as copying all the files in this repository to a web server 
+and browsing to app.html. All application state is stored in cookies / 
+web local storage.
+ 
 DvT is a client-side javascript application - just point it at your data
 source and start exploring.
 
