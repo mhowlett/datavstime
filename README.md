@@ -38,9 +38,9 @@ may be released under a different license.
 
 The data you are visualizing as well as meta-information about this data
 (e.g. label names, number of labels etc) **remains private** - does not
-leave your browser. However, DvT does send some basic usage information 
-to the datavstime.com website which is stored and will at some point be 
+leave your browser. DvT does however send some basic usage information 
+to the datavstime.com website which is stored and at some point will be 
 analyzed - what features of the software you are using and how often. 
-This allows me to understand how people are using DvT and enables me to
-direct development effort to where it is needed the most. 
+This allows me to better understand how people are using DvT so as to 
+make better decisions as to where to direct future development effort.
 
