@@ -22,12 +22,6 @@ Currently the only supported data source is <a href="http://prometheus.io">prome
 * This is a preview release. It's still buggy and incomplete.
 * All feedback is greatly appreciated. (matt [at] mhowlett [dot] com)
 
-The bundles/minified code is released under a |BSD license|
-
-This software depends on the following:
-  font awesome
-  web fonts.
-
 ## License
 
 The bundled / minified source is released under a 
@@ -42,5 +36,13 @@ leave your browser. DvT does however send some basic usage information
 to the datavstime.com website which is stored and at some point will be 
 analyzed - what features of the software you are using and how often. 
 This allows me to better understand how people are using DvT so as to 
-make better decisions as to where to direct future development effort.
+make better decisions about where to direct future development effort.
+
+## Dependencies
+
+DvT has two dependencies that are not (currently) included in this 
+distribution:
+
+  <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>
+  <a href="https://www.google.com/fonts/specimen/Open+Sans">Open Sans web font</a>
 
