@@ -1,7 +1,7 @@
 # data-vs-time
 
 Datavstime (DvT) is a browser based application for visualization of
-time-series data. You can use the software directly from the 
+time-series data. You can use the software directly on the 
 <a href="http://www.datavstime.com">www.datavstime.com</a> website, or you 
 can take a copy of this repository and deploy it locally. Deploying DvT
 is as simple as copying all the files in this repository to a web server 

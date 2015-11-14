@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--
+this version of datavstime is released under a 3-Clause BSD license with the clarification that the term "source" refers to the bundled/minified source in this distribution and not the original source from which this was derived.
+
+Copyright (c) 2015, Matthew Howlett (matt [at] mhowlett [dot] com)
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->  
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>data vs time - horizons</title>
+
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Open+Sans' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+
+    <script id="hl-fragment-shader" type="x-shader/x-fragment">
+      void main(void) {
+        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+      }
+    </script>
+
+    <script id="hl-vertex-shader" type="x-shader/x-vertex">
+      attribute vec2 a_vertexPosition;
+      uniform vec2 u_canvasSize;
+      uniform float u_lineTranslate;
+      uniform float u_depth;
+
+      void main(void) {
+        vec2 a = vec2(a_vertexPosition.x, (a_vertexPosition.y + u_lineTranslate) / u_canvasSize.y);
+        vec2 b = a * 2.0;
+        vec2 c = b - 1.0;
+        gl_Position = vec4(c.x, -c.y, u_depth, 1.0);
+      }
+    </script>
+
+    <script id="text-fragment-shader" type="x-shader/x-fragment">
+      precision mediump float;
+      varying highp vec2 v_textureCoord;
+      uniform sampler2D uSampler;
+      uniform float u_cutoffT;
+      uniform float u_transparency;
+      void main(void) {
+        if (v_textureCoord.s < u_cutoffT) {
+          vec4 col = texture2D(uSampler, v_textureCoord);
+          if (col.r == 1.0 && col.g == 0.0) {
+            gl_FragColor = vec4(0,0,0,0);
+          } else {
+            gl_FragColor = vec4(col.x,col.y,col.z,u_transparency);
+          }
+        } else {
+          gl_FragColor = vec4(0,0,0,0);
+        }
+      }
+    </script>
+
+    <script id="text-vertex-shader" type="x-shader/x-vertex">
+      attribute vec2 a_vertexPosition;
+      attribute vec2 a_textureCoord;
+      varying vec2 v_textureCoord;
+      uniform vec2 u_canvasSize;
+      uniform vec4 u_translateScale;
+      uniform float u_depth;
+      void main(void) {
+        vec2 a = vec2(
+          (a_vertexPosition.x*u_translateScale.z + u_translateScale.x) / u_canvasSize.x,
+          (a_vertexPosition.y*u_translateScale.w + u_translateScale.y) / u_canvasSize.y);
+        vec2 b = a * 2.0;
+        vec2 c = b - 1.0;
+        gl_Position = vec4(c.x, -c.y, u_depth, 1.0);
+        v_textureCoord = a_textureCoord;
+      }
+    </script>
+
+    <script id="rect-fragment-shader" type="x-shader/x-fragment">
+      precision mediump float;
+      uniform vec4 u_color;
+      void main(void) {
+        gl_FragColor = u_color;
+      }
+    </script>
+
+    <script id="rect-vertex-shader" type="x-shader/x-vertex">
+      attribute vec2 a_vertexPosition;
+      uniform vec2 u_canvasSize;
+      uniform vec4 u_translateScale;
+      uniform float u_depth;
+      void main(void) {
+        vec2 a = vec2(
+          (a_vertexPosition.x*u_translateScale.z + u_translateScale.x) / u_canvasSize.x,
+          (a_vertexPosition.y*u_translateScale.w + u_translateScale.y) / u_canvasSize.y);
+        vec2 b = a * 2.0;
+        vec2 c = b - 1.0;
+        gl_Position = vec4(c.x, -c.y, u_depth, 1.0);
+      }
+    </script>
+
+    <script id="tile-fragment-shader" type="x-shader/x-fragment">
+      precision mediump float;
+
+      varying highp vec2 v_textureCoord;
+
+      uniform sampler2D u_sampler;
+      uniform sampler2D u_paletteSampler;
+
+      uniform vec2 u_tileSize;
+
+      uniform float u_levels;
+      uniform float u_posPalette;
+      uniform float u_negPalette;
+
+      uniform float u_precisionScale;
+      uniform float u_precisionOffset;
+
+      uniform float u_adjustScale;
+      uniform float u_adjustOffset;
+      uniform float u_adjustReScale;
+
+      void main(void) {
+        float poff = 14.0;
+        if (u_levels == 2.0) { poff = 12.0; }
+        else if (u_levels == 3.0) { poff = 9.0; }
+        else if (u_levels == 4.0) { poff = 5.0; }
+        else if (u_levels == 5.0) { poff = 0.0; }
+
+        float step = 1.0 / u_levels;
+        vec4 val = texture2D(u_sampler, vec2(v_textureCoord.s, v_textureCoord.t));
+        if (val.x > 0.0 && val.y > 0.0 && val.z > 0.0 && val.w > 0.0 && val.x == val.y) {
+          float xvar = mod(floor(v_textureCoord.s * u_tileSize.x), 16.0);
+          float yvar = mod(floor(v_textureCoord.t * u_tileSize.y), 16.0);
+          float cl = 1.0;
+          if (yvar == xvar) {
+            cl = 0.5;
+          }
+          gl_FragColor = vec4(cl, cl, cl, 1.0);
+        }
+        else if (val.x > 0.0 && val.y > 0.0 && val.z > 0.0 && val.w > 0.0) {
+          float xvar = mod(floor(v_textureCoord.s * u_tileSize.x), 8.0);
+          float yvar = mod(floor(v_textureCoord.t * u_tileSize.y), 8.0);
+          float cl = 1.0;
+          if (yvar == xvar || yvar == (8.0-xvar)) {
+            cl = 0.5;
+          }
+          gl_FragColor = vec4(cl, cl, cl, 1.0);
+        }
+        else
+        {
+          float test_v = val.x + val.y/255.0; // +ve encoded value
+          if (val.x == 0.0 && val.y == 0.0) { test_v = -(val.z + val.a/255.0); } // -ve encoded value
+
+          test_v = test_v * u_precisionScale;
+          test_v = test_v + u_precisionOffset;
+          // at this point we have the original data.
+          test_v = test_v / u_adjustScale;
+          // now it's scaled so as to fit entire dynamic range (if abs).
+          test_v = test_v - u_adjustOffset;
+          test_v = test_v / u_adjustReScale;
+
+          float coord = v_textureCoord.t;
+          float palette = u_posPalette;
+          if (test_v < 0.0)
+          {
+            test_v = -test_v;
+            coord = (1.0 - v_textureCoord.t);
+            palette = u_negPalette;
+          }
+
+          if (test_v/step > u_levels) {
+            test_v = step*u_levels;
+          }
+
+          float level1 = floor(test_v / step);
+          float level2 = level1 - 1.0;
+          float excess = (test_v - level1 * step) / step;
+
+          float idx1 = (poff + level1 + 0.1) / 16.0;
+          float idx2 = (poff + level2 + 0.1) / 16.0;
+
+          if (coord <= excess) {
+            gl_FragColor = texture2D(u_paletteSampler, vec2(idx1, palette));
+          } else {
+            if (level2 < 0.0) {
+              gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+            } else {
+              gl_FragColor = texture2D(u_paletteSampler, vec2(idx2, palette));
+            }
+          }
+
+        }
+      }
+    </script>
+
+    <script id="tile-vertex-shader" type="x-shader/x-vertex">
+      attribute vec2 a_vertexPosition;
+      attribute vec2 a_textureCoord;
+
+      uniform vec2 u_canvasSize;
+      uniform vec2 u_tileTranslate;
+      uniform float u_depth;
+
+      varying highp vec2 v_textureCoord;
+
+      void main(void) {
+        vec2 a = vec2(a_vertexPosition.x + u_tileTranslate.x, a_vertexPosition.y + u_tileTranslate.y) / u_canvasSize;
+        vec2 b = a * 2.0;
+        vec2 c = b - 1.0;
+        gl_Position = vec4(c, u_depth, 1.0);
+        v_textureCoord = a_textureCoord;
+      }
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/dvt/bs/css/mybootstrap.css"></link>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+      .gly-spin {
+        -webkit-animation: spin 2s infinite linear;
+        -moz-animation: spin 2s infinite linear;
+        -o-animation: spin 2s infinite linear;
+        animation: spin 2s infinite linear;
+      }
+      @-moz-keyframes spin {
+        0% {
+          -moz-transform: rotate(0deg);
+        }
+        100% {
+          -moz-transform: rotate(359deg);
+        }
+      }
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(359deg);
+        }
+      }
+      @-o-keyframes spin {
+        0% {
+          -o-transform: rotate(0deg);
+        }
+        100% {
+          -o-transform: rotate(359deg);
+        }
+      }
+      @keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(359deg);
+          transform: rotate(359deg);
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  </head>
+
+  <body style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; position: relative; margin: 0; padding: 0;">
+
+    <div id="thediv"></div>
+    <script src="dvt.js"></script>
+
+  </body>
+
+</html>
