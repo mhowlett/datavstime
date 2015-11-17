@@ -1,6 +1,6 @@
 this version of datavstime is released under a 3-Clause BSD license 
 with the clarification that the term "source" refers to the 
-bundled/minified source in this distribution and not the original source
+distributed bundled/minified source and not the original source
 from which this was derived. 
 
 Copyright (c) 2015, Matthew Howlett (matt [at] mhowlett [dot] com)
