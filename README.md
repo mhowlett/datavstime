@@ -8,7 +8,7 @@ is as simple as copying all the files to a web server and pointing your
 browser at the index.html file. Note that all application state is stored 
 in cookies / web local storage - there is no server side component.
 
-Currently the only supported data source is <a href="http://prometheus.io">prometheus</a>. Support for additional data sources will be forthcoming soon. Also, the data source adapter interface will be exposed making it easy to add additional data sources.
+Currently the most well supported data source is <a href="http://prometheus.io">prometheus</a>. There is also basic support for <a href="https://influxdb.com">InfluxDb</a> (with comprehensive support planned). You can also write your own custom data source and connect to it with the proxy adapter. For examples of this, see <a href="https://github.com/mhowlett/datavstime-examples">datavstime-examples</a> on github.
 
 ## Overview
 
