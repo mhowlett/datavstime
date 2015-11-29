@@ -1,7 +1,13 @@
 
+## 0.5.2 / 2015-11-30
+
+[NEW] Proxy adapter API tweak query <-> series
+
+
 ## 0.5.1 / 2015-11-26
 
-[ENHANCEMENT] Proxy adapter now supports functions and aggregation functions.
+[NEW] Proxy adapter now supports functions and aggregation functions.
+
 
 ## 0.5 / 2015-11-23
 
